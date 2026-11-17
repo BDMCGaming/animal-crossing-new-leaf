@@ -12,6 +12,7 @@ import (
 	commonmatchmaking "github.com/PretendoNetwork/nex-protocols-common-go/v2/match-making"
 	commonmatchmakingext "github.com/PretendoNetwork/nex-protocols-common-go/v2/match-making-ext"
 	commonmatchmakeextension "github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension"
+	commonmessagedelivery "github.com/PretendoNetwork/nex-protocols-common-go/v2/message-delivery"
 	commonutility "github.com/PretendoNetwork/nex-protocols-common-go/v2/utility"
 	datastore "github.com/PretendoNetwork/nex-protocols-go/v2/datastore"
 	matchmaking "github.com/PretendoNetwork/nex-protocols-go/v2/match-making"
@@ -98,8 +99,10 @@ func registerCommonSecureServerProtocols() {
 
 	rankingProtocol := ranking.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(rankingProtocol)
+
 	messagedeliveryProtocol := messagedelivery.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(messagedeliveryProtocol)
+	commonmessagedelivery.NewCommonProtocol(messagedeliveryProtocol).SetManager(globals.MessagingManager)
 
 	utilityProtocol := utility.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(utilityProtocol)
